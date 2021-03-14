@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import ProductContainer from './ProductContainer';
 import AddProduct from './AddProduct';
+import UrlScrapper from './UrlScrapper';
 
 
 
@@ -9,7 +10,27 @@ import AddProduct from './AddProduct';
 
 
 const App = props => {
+  
   return (
+    <div>
+    <div class='topnav'>  
+         <Link to={'/'}>     
+            <div class="logoText">
+              WishList
+            </div>
+          </Link>  
+          <Link to={'/add'}>
+            <div class="linktext"  > 
+                Add Product
+            </div>
+          </Link>
+          <Link to={'/scrape'}>  
+            <div class="linktext"  >      
+              Scrape Testing  
+            </div>            
+          </Link>
+    </div> 
+
     <div className="router">
     <main>
     <Switch>
@@ -23,8 +44,15 @@ const App = props => {
         path="/add"
         component = {AddProduct}
       />
+
+      <Route
+        exact
+        path="/scrape"
+        component = {UrlScrapper}
+      />
     </Switch>
     </main>
+    </div>
     </div>
   );
 }

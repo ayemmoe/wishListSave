@@ -58,12 +58,23 @@ class ProductContainer extends Component {
     if (!products) return null;
 
     if (!products.length) return (
-      <div>Sorry, no characters found</div>
-    );
-    
-
-    return (
+      <div>Sorry, no characters found
         <section className="mainSection">
+        <header className="pageHeader">          
+          <Link to={'/add'}>
+            <button
+              type="button"
+              className="btnSecondary"
+            >
+              Add Product
+            </button>
+          </Link>
+        </header>
+      </section>
+      </div>
+    );
+
+    <section className="mainSection">
         <header className="pageHeader">
           <h2>Saved Products</h2>
           <Link to={'/add'}>
@@ -75,13 +86,19 @@ class ProductContainer extends Component {
             </button>
           </Link>
         </header>
-      <div>
-        <div id="board">
+      </section>
+    
+
+    return (      
+        <div>
+            
+          <div class="products">
           <Products props={products} />                   
+          </div>
         </div>
         
-      </div>
-      </section>
+     
+      
     );
   }
 }

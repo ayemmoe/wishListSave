@@ -54,5 +54,13 @@ module.exports = {
     // Enable importing JS / JSX files without specifying their extension
     extensions: ['.js', '.jsx'],
   },
+
+  node:{
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    
+  }
 };
 

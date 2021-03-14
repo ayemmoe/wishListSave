@@ -5,15 +5,17 @@ const Productsquare = (props) => {
   const { title, price, image, person,store } = props.props;
   console.log(props);
   return (
-    <div className="square">
-      <h3>{title}</h3>
-      <img src={image} alt='prouct' />
-      <hr></hr>
-      <label>Price: ${price}</label>
-      <label>........................</label>
-      <label>For {person}</label>
-      <hr></hr>
-      <button>Go To {store}</button>
+    <div className="square">      
+      <img src={image} alt='prouct' />     
+      
+      <div className="container">
+        <div className="text">
+          <leftp>{title}</leftp>     
+          <leftp>Price: ${price}</leftp>
+          <rightp>For {person}</rightp>
+          <button>Go To {store}</button>
+        </div>
+      </div>
     </div>
   );
 };

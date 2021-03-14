@@ -17,16 +17,8 @@ db.once('open', () => {
   console.log('Database connected', mongoURI);
 })
 
-const leaderList = [
-  {name: 'Anna', id: 'a0'},
-  {name: 'Ben', id: 'b0'},
-  {name: 'Clara', id: 'c0'},
-  {name: 'David', id: 'd0'},
-];
+app.use(express.json());
 
-app.get('/api/leaders', (req, res) => {
-  return res.status(200).send(leaderList);
-});
 
 
 // statically serve everything in the build folder on the route '/build'

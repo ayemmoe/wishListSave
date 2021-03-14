@@ -1,77 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
 body {
-  background: $lightBlue;
+  background: #12232E;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
-#board {
-  width: 1200px;
-  height: 1200px;
-  // border: 5px solid $lightOrange;
-  // background-color: $darkBlue;
-  margin: 20px auto;
-  padding: 0;
+* {
+  box-sizing: border-box;
+}
+
+
+
+.square {
+  display: flex;
+  flex-wrap : wrap;
+  align-items: stretch;
+  float: left;
 }
 
 .square {
-  box-sizing: border-box;
-  float: left;
-  // display: inline-block;
-  font-size: 0;
-  line-height: 0;
-  width: 300px;
-  height: 350px;
-  border-radius: 4px;
+  width: 200px;
+  height: 400px;
+  margin: 10px;
+  border: 1px solid #203647;
+  box-shadow: 2px 2px 6px 0px rgba(36, 73, 80, 0.3);
   background-color: white;
-  border: 1px solid gainsboro;
-  margin: 5px;
-  font-size: 1em;
-  font-weight: 550;
-  line-height: 10px;
-  text-align: center;
-  cursor: pointer;
-
-  &:hover {
-    background-color: darken(white, 15);
-  }
-
 }
 
-img {
+.square img {
+  max-width: 100%;
+  max-height: 250px;  
+  padding-top: 10px;
+  padding-left: 5%;
+  //object-fit: cover;
+}
+
+.container {
+  background-color: #007cc7;
+  padding-top: 15px;  
+  width: 100%;
+
+  
+}
+
+.square .container .text{
+  padding: 0 20px 20px ;
+  line-height: 20px;  
+  color : #dcebf5;
+  font-weight: bold;
+}
+
+.square .container .text > button {
+  background:#203647;
+  border: 0;
+  color: #FDF8F5;
+  padding: 10px;
   width: 150px;
-  height: 200px;
-}
-
-.mainSection {
-  margin-bottom: 5rem;
-}
-
-.pageHeader {
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.createCharFields {
+.square:nth-child(1){
+  width: 420px;
+}
+
+
+
+
+leftp{
+  display: block;
   width: 100%;
-  display: flex;
-  margin-bottom: 0.2rem;
+  overflow: hidden;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  max-height: 16px;
+  line-height: 16px;
+}
+rightp{
+  float: left;
+  padding-right: 10px;
+  //text-align: right;
 }
 
-.createCharFields label {
-  min-width: 8rem;
-  width: 9rem;
+.topnav {
+  overflow: hidden;
+  margin-top: 40px;
+  margin-bottom: 50px;
+ 
 }
 
-.product {
-  color: black;
-  background: #f3f3f3;
-  padding: 2rem;
-  border: 1px solid lightgray;
-  box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
+.topnav .logoText {
+  float: left;
+  color : #eefbfb;
+  font-weight: bold;
+  font-family: 'Syne Mono', monospace;
+  font-size: 50px;
 }
 
-.errorMsg {
-  color: red;
-  margin-left: 1rem;
-  font-size: 1.1rem;
-  padding-top: 0.2rem;
+.topnav .linktext {
+  float: right;
+  color : #eefbfb;
+  width: auto;
+  padding-left: 30px;
+}
+
+form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  border:1px solid white;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+input[type="submit"],
+button {
+  background: #266150;
+  color: white;
+  //text-transform: uppercase;
+  text-align: center;
+  border: none;
+  margin-top: 20px;
+  padding: 20px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  display: block;
+  appearance: none;
+  border-radius: 4px;
+  width: 100%;
+  font-weight: lighter;
+};
+
+h2{
+  text-align: center;
+  color: rgb(41, 68, 67);
+  font-weight: lighter;
 }

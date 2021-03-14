@@ -27,8 +27,8 @@ productsController.addProduct = (req, res, next) => {
         person: 'Mom',
         store: 'Amazon'
     };
-    
-    Product.create(newProduct)
+    console.log("req.bod",req.body);
+    Product.create(req.body)
     .then(data => {
         console.log(data);
         next();
