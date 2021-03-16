@@ -12,14 +12,10 @@ function getInitialState() {
        price: 79,
        image: "https://m.media-amazon.com/images/I/71rCwRiD8SL._AC_UY218_.jpg",
        person: 'Mom',
-       store: 'Amazon'
-      },
-      {title:'Expresso Machine',
-       price: 200,
-       image: "https://m.media-amazon.com/images/I/81e0jcHe5TL._AC_UL320_.jpg",
-       person: 'Me',
-       store: 'Ebay'
-      }
+       store: 'Amazon',
+       _id: 0,
+      },     
+      
     ],
     
   };
@@ -92,7 +88,7 @@ class ProductContainer extends Component {
     return (      
         <div>
             
-          <div class="products">
+          <div className="products">
           <Products props={products} />                   
           </div>
         </div>

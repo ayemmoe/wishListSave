@@ -1,5 +1,5 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 
 module.exports = {
   entry: './client/index.js',
@@ -39,16 +39,10 @@ module.exports = {
           'sass-loader',
         ], 
       },
-      {
-        test:/\.css$/,
-        use:[MiniCssExtractPlugin.loader, 'css-loader']
-      }
+      
     ],
   },
-  plugins: [new MiniCssExtractPlugin({
-    filename: process.env.NODE_ENV === 'production' ? "[name]-[contenthash].css" : "[name].css"
-    
-  })],
+  
   
   resolve: {
     // Enable importing JS / JSX files without specifying their extension

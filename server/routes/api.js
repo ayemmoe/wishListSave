@@ -5,10 +5,8 @@ const productsController = require('../controllers/productController');
 
 const router = express.Router();
 
-console.log(productsController.addProduct);
-// if (process.env.NODE_ENV === 'production') {
-//     router.get('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../index.html')));
-//   }
+console.log(productsController.deleteProduct);
+
 
 router.get('/product',
    productsController.getProduct,    
@@ -16,9 +14,14 @@ router.get('/product',
    
 )
 
-router.post('/product',
+router.post('/product/add',
   productsController.addProduct,
   (req,res) => res.status(200).json('Product Added')
+)
+
+router.delete('/product/:id',
+productsController.deleteProduct,
+  (req,res) => res.status(200).json('Product removed!')
 )
   
 module.exports = router;

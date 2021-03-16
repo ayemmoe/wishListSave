@@ -67,7 +67,7 @@ body {
 
 
 
-leftp{
+.leftp{
   display: block;
   width: 100%;
   overflow: hidden;
@@ -76,7 +76,8 @@ leftp{
   max-height: 16px;
   line-height: 16px;
 }
-rightp{
+
+.rightp{
   float: left;
   padding-right: 10px;
   //text-align: right;
