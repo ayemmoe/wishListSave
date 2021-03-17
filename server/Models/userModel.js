@@ -5,33 +5,35 @@ const SALT_WORK_FACTOR = 10;
 
 const userSchema = new Schema({
     username : {type : String, require: true},
-    password : {type : String, require: true}
+    password : {type : String, require: true},
+    email: {type: String, require:true},
 });
 
 
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function(next){
     const user = this;
     
     if(!user.isModified('password')) return next();
 
-    bcrypt.genSalt( SALT_WORK_FACTOR, (err,salt) => {
+    bcrypt.genSalt( SALT_WORK_FACTOR, function(err,salt){
         if(err) return next(err);
 
-        bcrypt.hash(user.password, salt, (err, hash) => {
+        bcrypt.hash(user.password, salt, function(err, hash){
             if(err) return next();
+            user.password = hash ;
+            next();
         })
 
-        user.password = hash ;
-        next();
+        
     })
 });
 
-userSchema.methods.comparePassword = (userPassword, callback) => {
-    bcrypt.compare(userPassword, this.password, (err, isMatch) =>{
+userSchema.methods.comparePassword = function(userPassword, callback) {
+    bcrypt.compare(userPassword, this.password, function(err, isMatch) {
         if(err) return next(err);
         callback(null,isMatch);
     })
 }
 
 
-module.exports = mongoose.model('User', productSchema);
+module.exports = mongoose.model('User', userSchema);
