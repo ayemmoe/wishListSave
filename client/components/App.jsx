@@ -45,7 +45,7 @@ const App = props => {
 
     <div className="router">
     <main>
-    <Switch>
+    <Switch >
       <Route
         exact
         path="/"

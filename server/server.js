@@ -27,8 +27,13 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 app.use('/api', apiRouter);
 // serve index.html on the route '/'
 // if (process.env.NODE_ENV === 'production') {
-    app.get('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../index.html')));
+app.get('/*', (req, res) => res.status(200).sendFile(path.join(__dirname, '../index.html')));
   // }
+
+/* GET React App */
+// app.use(function(req, res, next) {
+//   res.sendFile(path.join(__dirname, '../index.html'));
+//  });
 
 //global error handler
 app.use((err, req, res, next) => {

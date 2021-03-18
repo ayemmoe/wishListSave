@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 
 
@@ -8,6 +9,8 @@ class Login extends Component {
         this.state = { 
             username: '',
             password: '',
+            user:''
+            
         }        
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -31,30 +34,37 @@ class Login extends Component {
     OnSubmit () {        
         if(this.state.username !=='' && this.state.password!==''){
         
-        const body = this.state;
-        console.log(body);
+        const body = {username: this.state.username, password: this.state.password};
+        
         fetch('/api/user/verify', {
             method: 'POST',
             headers : {
                 'Content-Type' : 'Application/JSON'
             },
             body: JSON.stringify(body)
-        })
-          .then( resp => {
-              console.log(resp);
-              resp.json()
-            })
+        })   
+           
+          .then( response => response.json())             
+              
+              //console.log(resp.data)
+            //   if(resp.status === 200){
+            //       window.location.href = 'http://localhost:8080/';
+            //   } else {
+            //       console.log( 'error' + resp.status);
+            //   }
+            
           .then( data => {
               console.log(data);
+              this.setState(data);
+              localStorage.setItem('user', data)
           })
-        //   .then( () => {
-        //       this.props.history.push('/');
-        //   })
+        
           .catch( err => console.log('Login fetch /api/verify Error: ',err))
         }
-        console.log('Error with form');
+       
         
     }
+
 
 
     render() {

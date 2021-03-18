@@ -72,7 +72,7 @@ class UrlScrapper extends Component {
         })
           .then( resp => resp.json())
           .then( data => {
-              console.log(data);
+              console.log('inside the post method',data);
           })
           .then( () => {
               this.props.history.push('/');

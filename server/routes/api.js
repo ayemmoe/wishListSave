@@ -32,10 +32,10 @@ router.post('/user/add',
 router.post('/user/verify',
     usersController.verifyUser,
     (req,res) => {
-      console.log('res.locals.authenticated',res.locals.authenticated);
-      if(res.locals.authenticated){
-      res.status(200).redirect('/');
-      }
+      console.log('res.data', res.data);
+      
+      res.status(200).json(res.data);
+      
     }
 )
 
