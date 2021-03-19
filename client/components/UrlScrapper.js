@@ -4,16 +4,24 @@ import cheerio from "cheerio";
 
 class UrlScrapper extends Component {
     constructor(props) {
-        super(props);
+        super(props);  
         this.state = {
             title : '',
             store: '',
             person: '',
             price : 0,
             image : '',
-            URL: ''
-        };
+            URL: '',
+            user_id:''
+        }      
+
+        if(localStorage.getItem('user_id')){
+            this.state.user_id = JSON.parse(JSON.parse(localStorage.getItem('user_id'))).user_id;
+        } 
+            
+            
         console.log('we are in urlscrapper');
+        console.log(this.state)
         this.handleURLChange = this.handleURLChange.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handlePersonChange = this.handlePersonChange.bind(this);

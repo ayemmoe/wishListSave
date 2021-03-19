@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const port = process.env.port || 3000;
 const apiRouter = require('./routes/api');
+const bodyParser = require('body-parser');
 // uncomment the below for proxy challenge
 const mongoURI = 'mongodb://localhost:27017/webStore';
 
@@ -16,7 +17,7 @@ const db = mongoose.connection;
 db.once('open', () => {
   console.log('Database connected', mongoURI);
 })
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 

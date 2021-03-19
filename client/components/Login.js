@@ -56,7 +56,10 @@ class Login extends Component {
           .then( data => {
               console.log(data);
               this.setState(data);
-              localStorage.setItem('user', data)
+              //console.log(this.state)
+              data = JSON.stringify(data);
+              localStorage.setItem('user_id',JSON.stringify(data))
+              
           })
         
           .catch( err => console.log('Login fetch /api/verify Error: ',err))

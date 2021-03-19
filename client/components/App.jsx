@@ -1,17 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
-import ProductContainer from './ProductContainer';
+import MainArea from './MainArea';
 import AddProduct from './AddProduct';
 import UrlScrapper from './UrlScrapper';
 import Signuppage from './Signuppage';
-import Login from './Login';
+import Login from './Login'; 
+    
+  
 
 
+// const App = props => {
+  
+  class App extends Component {
+    constructor(props) {
+      super(props);
+      if(localStorage.getItem('user_id')){
+      this.state = {user_id:JSON.parse(JSON.parse(localStorage.getItem('user_id'))).user_id };
+      } else{
+          this.state = {user_id: ''}
+      }
+      
+    }
+  
+    render(){
 
-
-
-
-const App = props => {
   
   return (
     <div>
@@ -49,7 +61,10 @@ const App = props => {
       <Route
         exact
         path="/"
-        component = {ProductContainer}
+        component = {MainArea}
+        // render ={(props) => (
+        //   <ProductContainer {...props.user} />
+        // )}
       />
       <Route
         exact
@@ -78,7 +93,9 @@ const App = props => {
     </div>
     </div>
   );
+    }
 }
+
   
 
   

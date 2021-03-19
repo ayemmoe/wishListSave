@@ -31,7 +31,7 @@ usersController.verifyUser = (req, res, next) => {
 
                 if(isMatched) {
                     res.locals.authenticated = true;
-                    res.data = {user: user.username};
+                    res.data = {user_id: user._id};
                     return next();
                 }
             })

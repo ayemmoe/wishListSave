@@ -9,7 +9,7 @@ const router = express.Router();
 console.log(productsController.deleteProduct);
 
 
-router.get('/product',
+router.get('product/',
    productsController.getProduct,    
    (req,res) => res.status(200).json(res.locals.products)   
 )

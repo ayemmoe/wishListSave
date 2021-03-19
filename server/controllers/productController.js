@@ -2,6 +2,7 @@ const Product = require('../Models/productModel.js');
 const productsController = {};
 
 productsController.getProduct = (req, res, next) => {
+    console.log('inside get product',req.query)
     Product.find({})
     .then(data => {
         res.locals.products = data;
@@ -18,7 +19,7 @@ productsController.getProduct = (req, res, next) => {
 }
 
 productsController.addProduct = (req, res, next) => {
-    
+    //console.log(req.)
      Product.create(req.body)
     .then(data => {
         console.log(data);

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Products from './Products';
@@ -14,9 +14,9 @@ function getInitialState() {
        person: 'Mom',
        store: 'Amazon',
        _id: 0,
-      },     
-      
+      },         
     ],
+    
     
   };
 }
@@ -26,12 +26,28 @@ function getInitialState() {
 class ProductContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = getInitialState();
-    
+    this.state = {
+      fetchedProducts : false,
+    products: [
+      {title:'Toaster',
+       price: 79,
+       image: "https://m.media-amazon.com/images/I/71rCwRiD8SL._AC_UY218_.jpg",
+       person: 'Mom',
+       store: 'Amazon',
+       _id: 0,
+      },         
+    ],
+    user_id: props,
+    }
+    console.log(this.state);
   }
   
-  componentDidMount() {
-    fetch('/api/product')
+  
+
+  componentDidMount() {    
+    //const body = {user_id: this.state.user_id.props }
+    
+    fetch('/api/product/?user_id='+this.state.user_id.props)
       .then(res => res.json())
       .then( (products) => {
         if (!Array.isArray(products)) products =[];
@@ -86,8 +102,7 @@ class ProductContainer extends Component {
     
 
     return (      
-        <div>
-            
+        <div>            
           <div className="products">
           <Products props={products} />                   
           </div>
