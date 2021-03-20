@@ -38,16 +38,22 @@ class ProductContainer extends Component {
       },         
     ],
     user_id: props,
+    seen: false
     }
     console.log(this.state);
+    this.togglePopup = this.togglePopup.bind(this);
   }
   
-  
+  togglePopup() {
+    this.setState({
+      seen: !this.state.seen
+    });
+  }
 
   componentDidMount() {    
     //const body = {user_id: this.state.user_id.props }
-    
-    fetch('/api/product/?user_id='+this.state.user_id.props)
+    //?user_id='+this.state.user_id.props
+    fetch('/api/product?user_id='+this.state.user_id.props)
       .then(res => res.json())
       .then( (products) => {
         if (!Array.isArray(products)) products =[];
@@ -102,10 +108,11 @@ class ProductContainer extends Component {
     
 
     return (      
-        <div>            
+        <div> 
+          
           <div className="products">
           <Products props={products} />                   
-          </div>
+          </div>          
         </div>
         
      

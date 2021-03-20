@@ -1,5 +1,7 @@
 import React, { Component, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import ProductContainer from './ProductContainer';
+
 
 
 function getInitialState() {
@@ -16,29 +18,50 @@ class MainArea extends Component {
       } else{
         this.state = {user_id: ''}
       }
-      
+    this.handleLogout = this.handleLogout.bind(this);
+
     }
 
     
-    // componentDidMount(){        
-    //     const loggedInuser = localStorage.getItem('user_id');
-    //     if(loggedInuser){
-    //     const user_id = JSON.parse(JSON.parse(loggedInuser));
-    //     console.log("console log user_Id",user_id)
-        
-    //     return this.setState({user_id})
-    //     }
-        
-    // }
+    handleLogout(){
+      //const history = useHistory();
+      localStorage.clear();
+      this.props.history.push('/login');
+    }
 
     
+     
 
 
     render(){
         const user = this.state.user_id;
         
     return(
-        <div>            
+        <div>  
+          <div className="mainNav">
+          <Link to={'/add'}>
+            <div className="linktext"  > 
+                Add Product
+            </div>
+          </Link>
+          {/* <Link to={'/scrape'}>  
+            <div className="linktext"  >      
+              Scrape Testing  
+            </div>            
+          </Link>
+          <Link to={'/signup'}>  
+            <div className="linktext"  >      
+              SignUp  
+            </div>            
+          </Link>
+          <Link to={'/'}>  
+            <div className="linktext"  >      
+              Products 
+            </div>            
+          </Link> */}
+          <button className= "linktext" id="logout" onClick={this.handleLogout}>Logout</button>           
+          </div>    
+          
           <div className="products">
           <ProductContainer props={user} />                   
           </div>

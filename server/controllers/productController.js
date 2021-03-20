@@ -3,8 +3,8 @@ const productsController = {};
 
 productsController.getProduct = (req, res, next) => {
     console.log('inside get product',req.query)
-    Product.find({})
-    .then(data => {
+    Product.find(req.query)
+    .then(data => {        
         res.locals.products = data;
         //console.log(data);
 

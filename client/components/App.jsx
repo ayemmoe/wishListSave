@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Switch, Route, Redirect} from 'react-router-dom';
 import MainArea from './MainArea';
 import AddProduct from './AddProduct';
 import UrlScrapper from './UrlScrapper';
@@ -15,15 +15,16 @@ import Login from './Login';
     constructor(props) {
       super(props);
       if(localStorage.getItem('user_id')){
-      this.state = {user_id:JSON.parse(JSON.parse(localStorage.getItem('user_id'))).user_id };
-      } else{
-          this.state = {user_id: ''}
-      }
-      
+        this.state = {userLoggedIn:true};
+        } else{
+          this.state = {userLoggedIn:false}
+        }
     }
+
+    
   
     render(){
-
+      
   
   return (
     <div>
@@ -33,48 +34,32 @@ import Login from './Login';
               WishList
             </div>
           </Link>  
-          <Link to={'/add'}>
-            <div className="linktext"  > 
-                Add Product
-            </div>
-          </Link>
-          <Link to={'/scrape'}>  
-            <div className="linktext"  >      
-              Scrape Testing  
-            </div>            
-          </Link>
-          <Link to={'/signup'}>  
-            <div className="linktext"  >      
-              SignUp  
-            </div>            
-          </Link>
-          <Link to={'/login'}>  
-            <div className="linktext"  >      
-              Login 
-            </div>            
-          </Link>
+          
     </div> 
 
     <div className="router">
+    
     <main>
     <Switch >
       <Route
         exact
-        path="/"
-        component = {MainArea}
-        // render ={(props) => (
-        //   <ProductContainer {...props.user} />
-        // )}
+        path="/login"
+        component = {Login}        
       />
       <Route
+        exact
+        path="/"
+        component = {MainArea}
+      />
+      {/* <Route
         exact
         path="/add"
         component = {AddProduct}
-      />
+      /> */}
 
       <Route
         exact
-        path="/scrape"
+        path="/add"
         component = {UrlScrapper}
       />
 
@@ -83,13 +68,11 @@ import Login from './Login';
         path="/signup"
         component = {Signuppage}
       />
-      <Route
-        exact
-        path="/login"
-        component = {Login}
-      />
+      
     </Switch>
     </main>
+    {this.state.userLoggedIn ? <Redirect to="/" /> : <Redirect to="login" />}
+      
     </div>
     </div>
   );

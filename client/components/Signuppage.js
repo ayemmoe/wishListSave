@@ -13,7 +13,7 @@ class Signuppage extends Component {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
         this.OnSubmit = this.OnSubmit.bind(this);
     }
 
@@ -29,8 +29,8 @@ class Signuppage extends Component {
         this.setState({password: e.target.value});
     }
 
-    handleCancel(){
-        this.props.history.push('/');
+    handleLogin(){
+        this.props.history.push('/login');
     }
 
     OnSubmit () {        
@@ -67,7 +67,7 @@ class Signuppage extends Component {
               <input type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleUsernameChange} />            
               <input type="text" name="person" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} />
               <input type="text" name="person" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
-              <button type="button" onClick={this.handleCancel}>Back</button>
+              <button type="button" onClick={this.handleLogin}>Login</button>
               <button type="button" onClick={this.OnSubmit}>Submit</button>
             </ul>
         </form>

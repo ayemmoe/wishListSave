@@ -1,13 +1,14 @@
-import React from 'react';
+import React,{Component} from 'react';
 
 
-const Productsquare = (props) => {
-  const { title, price, image, person,store,_id } = props.props;
-  
-  
-  const deleteProduct = () => {       
-    const body = {_id : _id};
-    
+class Productsquare extends Component {
+  constructor(props) {
+    super(props);
+    this.deleteProduct = this.deleteProduct.bind(this);
+  }
+
+  deleteProduct () {       
+    const body = {_id : this.props.props._id};    
     fetch('/api/product/:id', {
         method: 'DELETE',
         headers : {
@@ -20,17 +21,15 @@ const Productsquare = (props) => {
           console.log(data);
       })
       .then( () => {
-          //this.props.history.push('/');
-          window.location.reload();
+        //this.props.history.push('/products');
+        window.location.reload('/');
       })
       .catch( err => console.log('deleteProduct fetch /api/product Error: ',err))
     }
-    //console.log('Error with deleteProduct');
-    
-  
-  
-  
 
+  render(){
+  const { title, price, image, person,store,_id } = this.props.props;
+  
   return (
     <div className="square">      
       <img src={image} alt='prouct' />     
@@ -40,13 +39,15 @@ const Productsquare = (props) => {
           <div className="leftp">{title}</div>     
           <div className="leftp">Price: ${price}</div>
           <div className="rightp">For {person}</div>
-          <button>Go To {store}</button>
-          <button name="delete" onClick={deleteProduct} >Delete</button>
         </div>
       </div>
+      <button id="buy">Buy at {store}</button>
+      <button id="delete" onClick={this.deleteProduct} >Delete</button>
     </div>
   );
 };
+
+}
 
 
 

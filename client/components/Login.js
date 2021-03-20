@@ -9,7 +9,8 @@ class Login extends Component {
         this.state = { 
             username: '',
             password: '',
-            user:''
+            user:'',
+            error: true
             
         }        
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -28,10 +29,17 @@ class Login extends Component {
     }
 
     handleCancel(){
-        this.props.history.push('/');
+        this.props.history.push('/signup');
     }
 
-    OnSubmit () {        
+    OnSubmit (e) {    
+        e.preventDefault();
+        
+        const {username,password} = this.state;
+        const {history} = this.props;
+
+        this.setState({error : false});
+
         if(this.state.username !=='' && this.state.password!==''){
         
         const body = {username: this.state.username, password: this.state.password};
@@ -59,10 +67,11 @@ class Login extends Component {
               //console.log(this.state)
               data = JSON.stringify(data);
               localStorage.setItem('user_id',JSON.stringify(data))
+              history.push('/')
               
           })
         
-          .catch( err => console.log('Login fetch /api/verify Error: ',err))
+          .catch( err => this.setState({error: true}))
         }
        
         
@@ -76,9 +85,9 @@ class Login extends Component {
             <h2>Login</h2>
             <ul>         
               <input type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleUsernameChange} />            
-              <input type="text" name="person" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
-              <button type="button" onClick={this.handleCancel}>Back</button>
+              <input type="text" name="person" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />              
               <button type="button" onClick={this.OnSubmit}>Submit</button>
+              <button type="button" onClick={this.handleCancel}>Sign Up</button>
             </ul>
         </form>
         );
