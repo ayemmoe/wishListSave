@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import rp from "request-promise";
 import cheerio from "cheerio";
+import {Checkmark} from 'react-checkmark';
 
 class UrlScrapper extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class UrlScrapper extends Component {
             price : 0,
             image : '',
             URL: '',
-            user_id:''
+            user_id:'',
+            scrapedone: false,
         }      
 
         if(localStorage.getItem('user_id')){
@@ -27,6 +29,7 @@ class UrlScrapper extends Component {
         this.handlePersonChange = this.handlePersonChange.bind(this);
         this.OnSubmit = this.OnSubmit.bind(this);
         this.onScrape = this.onScrape.bind(this)
+        this.handlePriceChange = this.handlePriceChange.bind(this);
     }
 
     handleURLChange(e){
@@ -37,6 +40,10 @@ class UrlScrapper extends Component {
     handlePersonChange(e){
         this.setState({person:e.target.value})
        }
+
+    handlePriceChange(e){
+    this.setState({price:e.target.value})
+    }
  
     handleCancel(){
         this.props.history.push('/');
@@ -46,29 +53,65 @@ class UrlScrapper extends Component {
 
     onScrape(){
         rp("https://thingproxy.freeboard.io/fetch/"+this.state.URL)
-        .then( (html) => cheerio.load(html))
+        .then( (html) => {
+            //console.log(html);
+            return cheerio.load(html);})
         .then( $ => {
-            const Title =$("#productTitle").prepend().text().trim();
-            const getPrice = $("#priceblock_ourprice").prepend().text().trim();
-            const Image = $("#imgTagWrapperId img").attr('src');
-            const Store = this.state.URL.match(/www.(.*).com/).pop().toUpperCase();
-            const Price = getPrice.replace('$','');
             
-            console.log("Title",Title);
-            console.log("Price", Price);
-            console.log("image",Image);
-            this.setState({
-                title: Title,
-                price: parseInt(Price),
-                image: Image,
-                store: Store
-            })
+            const Store = this.state.URL.match(/www.(.*).com/).pop().toUpperCase();
+
+            switch(Store){
+                case 'AMAZON': {
+                    const Title =$("#productTitle").prepend().text().trim();
+                    const getPrice = $("#priceblock_ourprice").prepend().text().trim();
+                    const Image = $("#imgTagWrapperId img").attr('src');
+                    const Price = getPrice.replace('$','');
+                    console.log("Title",Title);
+                    console.log("Price", Price);
+                    console.log("image",Image);
+                    this.setState({
+                        title: Title,
+                        price: parseInt(Price),
+                        image: Image,
+                        store: Store,
+                        scrapedone: true
+                    })
+
+                }
+                break;
+
+                case 'TARGET': {
+                    var obj =$("script[type='application/ld+json']");
+                    var data = JSON.parse(obj[0].children[0].data);
+                    const Title =data['@graph'][0].name;
+                    
+                    const Image = data['@graph'][0].image;
+                    //const Price = getPrice.replace('$','');
+                    console.log("Title",Title);
+                    console.log("image",Image);
+                    this.setState({
+                        title: Title,
+                        image: Image,
+                        store: Store,
+                        scrapedone: true
+                    })
+
+                }
+                break;
+            }
+
+            
+            
+            
+            
+            
+            
+            
         })
     }
 
     OnSubmit () {        
-        if(this.state.URL !=='' && this.state.person!=='' ){
-        
+        if(this.state.URL !=='' && this.state.person!=='' ){        
         const body = this.state;
         console.log(body);
         fetch('/api/product/add', {
@@ -94,12 +137,13 @@ class UrlScrapper extends Component {
     render() {
         return (
             <form>
-            <h2>Add Product Info</h2>
-            <ul>         
+            <h2>Add Product Info<span>{this.state.scrapedone ? <Checkmark size="30px" /> :null} </span></h2>
+            <ul>                      
               <input type="text" placeholder="Enter URL " name="url" value={this.state.URL} onChange={this.handleURLChange} />            
               <input type="text" name="person" placeholder="Name of Person" value={this.state.person} onChange={this.handlePersonChange} />
+              <input type="text" name="price" placeholder="Price" value={this.state.price} onChange={this.handlePriceChange} />
               <button type="button" onClick={this.handleCancel}>Back</button>
-              <button type="button" onClick={this.onScrape}>Extract</button>
+              <button type="button" onClick={this.onScrape}>Extract</button>              
               <button type="button" onClick={this.OnSubmit}>Submit</button>
             </ul>
         </form>

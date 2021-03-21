@@ -4,24 +4,6 @@ import { Link } from 'react-router-dom';
 import Products from './Products';
 
 
-function getInitialState() {
-  return {
-    fetchedProducts : false,
-    products: [
-      {title:'Toaster',
-       price: 79,
-       image: "https://m.media-amazon.com/images/I/71rCwRiD8SL._AC_UY218_.jpg",
-       person: 'Mom',
-       store: 'Amazon',
-       _id: 0,
-      },         
-    ],
-    
-    
-  };
-}
-
-
 
 class ProductContainer extends Component {
   constructor(props) {
@@ -76,16 +58,11 @@ class ProductContainer extends Component {
     if (!products) return null;
 
     if (!products.length) return (
-      <div>Sorry, no characters found
+      <div><h2>Start Adding your product!!</h2>
         <section className="mainSection">
         <header className="pageHeader">          
-          <Link to={'/add'}>
-            <button
-              type="button"
-              className="btnSecondary"
-            >
-              Add Product
-            </button>
+          <Link to={'/add'}>            
+              <h2>Here</h2>
           </Link>
         </header>
       </section>
